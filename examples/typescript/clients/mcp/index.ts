@@ -37,12 +37,17 @@ const server = new McpServer({
 });
 
 // Add an addition tool
-server.tool("get-data-from-resource-server", "Get data from the resource server (in this example, the weather)", {}, async () => {
-  const res = await client.get(`${ENDPOINT_PATH}`);
-  return {
-    content: [{ type: "text", text: JSON.stringify(res.data) }],
-  };
-});
+server.tool(
+  "get-data-from-resource-server",
+  "Get data from the resource server (in this example, the weather)",
+  {},
+  async () => {
+    const res = await client.get(`${ENDPOINT_PATH}`);
+    return {
+      content: [{ type: "text", text: JSON.stringify(res.data) }],
+    };
+  },
+);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
