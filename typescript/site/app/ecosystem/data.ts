@@ -17,20 +17,20 @@ export interface CategoryInfo {
 export const categories: CategoryInfo[] = [
   {
     id: "client-side-integrations",
-    name: "Client-Side Integrations"
+    name: "Client-Side Integrations",
   },
   {
     id: "services-endpoints",
-    name: "Services/Endpoints"
+    name: "Services/Endpoints",
   },
   {
     id: "ecosystem-infrastructure",
-    name: "Ecosystem Infrastructure & Tooling"
+    name: "Ecosystem Infrastructure & Tooling",
   },
   {
     id: "learning-community",
-    name: "Learning & Community Resources"
-  }
+    name: "Learning & Community Resources",
+  },
 ];
 
-// The partners array is removed from here. It will be dynamically loaded. 
+// The partners array is removed from here. It will be dynamically loaded.
