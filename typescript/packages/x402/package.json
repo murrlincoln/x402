@@ -1,12 +1,12 @@
 {
   "name": "x402",
-  "version": "0.3.4",
+  "version": "0.3.7",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "start": "tsx --env-file=.env index.ts",
-    "build": "npm run build:paywall && tsup",
+    "build": "tsup",
     "build:paywall": "tsx src/paywall/build.ts",
     "test": "vitest run",
     "test:watch": "vitest",
