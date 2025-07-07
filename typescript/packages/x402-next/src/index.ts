@@ -17,8 +17,10 @@ import {
   PaymentRequirements,
   Resource,
   RoutesConfig,
+  PaywallConfig,
 } from "x402/types";
 import { useFacilitator } from "x402/verify";
+import { safeBase64Encode } from "x402/shared";
 
 /**
  * Creates a payment middleware factory for Next.js
@@ -26,6 +28,7 @@ import { useFacilitator } from "x402/verify";
  * @param payTo - The address to receive payments
  * @param routes - Configuration for protected routes and their payment requirements
  * @param facilitator - Optional configuration for the payment facilitator service
+ * @param paywall - Optional configuration for the default paywall
  * @returns A Next.js middleware handler
  *
  * @example
@@ -72,6 +75,11 @@ import { useFacilitator } from "x402/verify";
  *       verify: { "Authorization": "Bearer token" },
  *       settle: { "Authorization": "Bearer token" }
  *     })
+ *   },
+ *   {
+ *     cdpClientKey: 'your-cdp-client-key',
+ *     appLogo: '/images/logo.svg',
+ *     appName: 'My App',
  *   }
  * );
  * ```
@@ -80,6 +88,7 @@ export function paymentMiddleware(
   payTo: Address,
   routes: RoutesConfig,
   facilitator?: FacilitatorConfig,
+  paywall?: PaywallConfig,
 ) {
   const { verify, settle } = useFacilitator(facilitator);
   const x402Version = 1;
@@ -154,6 +163,9 @@ export function paymentMiddleware(
               >[0]["paymentRequirements"],
               currentUrl: request.url,
               testnet: network === "base-sepolia",
+              cdpClientKey: paywall?.cdpClientKey,
+              appLogo: paywall?.appLogo,
+              appName: paywall?.appName,
             });
           return new NextResponse(html, {
             status: 402,
@@ -232,12 +244,14 @@ export function paymentMiddleware(
       if (settlement.success) {
         response.headers.set(
           "X-PAYMENT-RESPONSE",
-          JSON.stringify({
-            success: true,
-            transaction: settlement.transaction,
-            network: settlement.network,
-            payer: settlement.payer,
-          }),
+          safeBase64Encode(
+            JSON.stringify({
+              success: true,
+              transaction: settlement.transaction,
+              network: settlement.network,
+              payer: settlement.payer,
+            }),
+          ),
         );
       }
     } catch (error) {
