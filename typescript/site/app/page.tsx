@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   BoltIcon,
   CloudIcon,
@@ -15,7 +16,6 @@ import {
 import { FeatureItem } from './components/FeatureItem';
 import GithubIcon from './assets/github.svg';
 import DiscordIcon from './assets/discord.svg';
-import WordmarkCondensed from './assets/x402_wordmark_dark.svg';
 import { Section } from './components/Section';
 import { BackgroundVideo } from './components/BackgroundVideo';
 import NavBar from './components/NavBar';
@@ -92,24 +92,37 @@ export default function Home() {
         {/* Hero Section */}
         <section className="max-w-6xl mx-auto px-4 py-20 lg:py-28">
           <div className="text-center">
-            <div className="w-64 mb-6 mx-auto">
-              <WordmarkCondensed className="mx-auto" />
+            <div className="mb-6">
+              <Image
+                src="/x402-logo.png"
+                alt="x402 logo"
+                width={320}
+                height={160}
+                className="mx-auto"
+              />
             </div>
             <p className="text-xl text-gray-400 mb-8 font-mono">
               An open protocol for internet-native payments
             </p>
             <div className="flex flex-wrap gap-4 mb-6 justify-center">
               <Link
+                href="/ecosystem"
+                className="px-6 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-mono transition-colors flex items-center gap-2 text-lg"
+              >
+                <Squares2X2Icon className="w-5 h-5 mr-1" />
+                View Ecosystem
+              </Link>
+            </div>
+            <div className="flex flex-wrap gap-4 mb-8 justify-center">
+              <Link
                 href="/x402-whitepaper.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-mono transition-colors flex items-center gap-2 text-lg"
+                className="px-4 py-3 border-2 border-transparent hover:border-blue-600 rounded-lg font-mono transition-colors flex items-center gap-2 text-sm"
               >
                 <DocumentTextIcon className="w-5 h-5 mr-1" />
                 Read the whitepaper
               </Link>
-            </div>
-            <div className="flex flex-wrap gap-4 mb-8 justify-center">
               <Link
                 href="https://x402.gitbook.io/x402"
                 target="_blank"
@@ -127,13 +140,6 @@ export default function Home() {
               >
                 <CodeBracketIcon className="w-5 h-5 mr-1" />
                 Try it out
-              </Link>
-              <Link
-                href="/ecosystem"
-                className="px-4 py-3 border-2 border-transparent hover:border-blue-600 rounded-lg font-mono transition-colors flex items-center gap-2 text-sm"
-              >
-                <Squares2X2Icon className="w-5 h-5 mr-1" />
-                View Ecosystem
               </Link>
             </div>
           </div>
@@ -247,6 +253,17 @@ export default function Home() {
             </div>
           </div>
         </Section>
+
+        {/* x402 Button Section */}
+        <div className="relative z-10 text-center py-12">
+          <Image
+            src="/x402-button-large.png"
+            alt="x402 button"
+            width={320}
+            height={160}
+            className="mx-auto"
+          />
+        </div>
       </div>
       <footer className="relative z-10 py-8 text-center text-sm text-gray-400">
         By using this site, you agree to be bound by the{' '}
